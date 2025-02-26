@@ -1,7 +1,7 @@
 # Mutual Information & Transfer Entropy Calculator
 
-This package provides numerical tools for evaluating **mutual information** between features and **transfer entropy** between sequences using **numerical integration techniques**.
-For the explanation, function testing report and discussions, please refer to **numerical_integration.pdf** and **Entropy and Mutual InfoOff.pdf**.
+This package provides numerical tools for evaluating **mutual information** between features and **transfer entropy** between sequences using **numerical integration techniques**.  
+For detailed explanations, function testing reports, and discussions, please refer to **numerical_integration.pdf** and **Entropy and Mutual InfoOff.pdf**.
 
 ## 📌 Key Features
 - **Mathematical Rigor**: The calculations follow the **original mathematical definitions** directly, **without** discretizing the data into histogram-like bar formats, which is a common but less precise practice.
