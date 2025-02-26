@@ -19,9 +19,7 @@ A more detailed explanation, along with examples and extended documentation, wil
 ---
 
 ## 🚀 Future Updates
-- 📖 **Publication Details**: Full citation and DOI link will be added upon acceptance.  
-- 📊 **Usage Examples**: Jupyter notebooks demonstrating mutual information & transfer entropy calculations will be included.   
-
+- 📖 **Publication Details**: Full citation and DOI link will be added upon acceptance.
 ---
 
 ## 📫 Contact  
