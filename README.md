@@ -10,16 +10,8 @@ For detailed explanations, function testing reports, and discussions, please ref
 ## 📄 Citation
 These functions are utilized in the following research article:
 
-> **Chou, Daniel** & **Chloe Arson**, 2025. Microstructure features that most influence the Mori-Tanaka scheme break-down in 2D solids with crack-like flat cavities,
-> Journal of Engineering Mechanics, DOI: 10.1061/JENMDT/EMENG-8025 (forthcoming)
-
-A more detailed explanation, along with examples and extended documentation, will be provided once the article is formally published.
-
----
-
-## 🚀 Future Updates
-- 📖 **Publication Details**: Full citation and DOI link will be added upon acceptance.
----
+> **Chou, Daniel**, and **Chloé Arson**. "Microstructure Features that Most Influence the Mori–Tanaka Scheme Breakdown in 2D Solids with Crack-Like Flat Cavities." Journal of Engineering Mechanics 151.9 (2025): 04025049.
+> [Link](https://ascelibrary.org/doi/abs/10.1061/JENMDT.EMENG-8025)
 
 ## 📫 Contact  
 For further inquiries, discussions, or collaboration, feel free to reach out via [LinkedIn](https://linkedin.com/in/daniel-t-chou-1b51661b2).
