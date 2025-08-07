@@ -292,15 +292,18 @@ def Marginal_Entropy(x,buffer_coefficient=0.3,n=64):
     The function uses Gaussian kernel density estimation to estimate the probability density
     of the dataset and numerical integration to calculate the entropy.
     """
-    lower=x.min()
-    upper=x.max()
-    buffer=buffer_coefficient*(upper-lower)
-    p,w=gauss_legendre(n=n, a=lower-buffer, b=upper+buffer)
-    kde=stats.gaussian_kde(x)
-    px=kde(p)
-    hx=GL_entropy(px,w,e=1e-12)
-
-    return hx
+    if np.std(x) < 1e-10:
+        return -np.inf 
+    else:
+        lower=x.min()
+        upper=x.max()
+        buffer=buffer_coefficient*(upper-lower)
+        p,w=gauss_legendre(n=n, a=lower-buffer, b=upper+buffer)
+        kde=stats.gaussian_kde(x)
+        px=kde(p)
+        hx=GL_entropy(px,w,e=1e-12)
+    
+        return hx
 
 def Mutual_Information(x,y,buffer_coefficient=0.3,n=64,numerical_integration=True):
     """
@@ -352,4 +355,5 @@ def Mutual_Information(x,y,buffer_coefficient=0.3,n=64,numerical_integration=Tru
         hy=GL_entropy(py,w2,e=1e-12)
         hxy=GL_entropy(pxy,Gauss_points_weights[:,-1],e=1e-12)
         MI=max(0, hx + hy - hxy)
+
     return MI
