@@ -355,7 +355,7 @@ def Mutual_Information(x,y,buffer_coefficient=0.3,n=64,numerical_integration=Tru
         hy=GL_entropy(py,w2,e=1e-12)
         hxy=GL_entropy(pxy,Gauss_points_weights[:,-1],e=1e-12)
         MI=max(0, hx + hy - hxy)
-
+    return MI
 
 def modify_samples_in_1Ddata(data, min_num=40, seed=None):
     """
@@ -418,7 +418,3 @@ def modify_samples_in_1Ddata(data, min_num=40, seed=None):
         out = x
 
     return out
-
-
-    return MI
-
