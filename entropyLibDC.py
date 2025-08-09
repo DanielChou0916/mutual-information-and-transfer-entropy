@@ -356,4 +356,69 @@ def Mutual_Information(x,y,buffer_coefficient=0.3,n=64,numerical_integration=Tru
         hxy=GL_entropy(pxy,Gauss_points_weights[:,-1],e=1e-12)
         MI=max(0, hx + hy - hxy)
 
+
+def modify_samples_in_1Ddata(data, min_num=40, seed=None):
+    """
+    Ensure that a 1D sample set has exactly `min_num` points by either
+    resampling or downsampling.
+
+    Parameters
+    ----------
+    data : array_like
+        Input 1D data array for a single time step.
+    min_num : int, optional
+        Target number of samples after adjustment (default is 40).
+    seed : int or None, optional
+        Random seed for reproducibility.
+
+    Returns
+    -------
+    ndarray
+        A 1D numpy array of length `min_num` containing the adjusted samples.
+
+    Behavior
+    --------
+    - If len(data) < min_num:
+        Fill with additional samples generated from a Gaussian KDE fit to the data.
+        If KDE fails (due to too few points or singularity), fall back to
+        bootstrap resampling with small random jitter.
+    - If len(data) > min_num:
+        Randomly select `min_num` points from the data.
+        (You can modify this step to choose top values or weighted sampling.)
+    - If len(data) == min_num:
+        Return the data unchanged.
+    """
+    rng = np.random.default_rng(seed)
+    x = np.asarray(data).ravel()
+
+    n = x.size
+    if n == 0:
+        # If there is no data at all, return zeros
+        return np.zeros(min_num, dtype=float)
+
+    if n < min_num:
+        try:
+            # Fit KDE to existing samples
+            kde = stats.gaussian_kde(x)
+            # Resample enough points to reach min_num
+            # For 1D, kde.resample() returns shape (1, m)
+            new = kde.resample(min_num - n)[0]
+            out = np.hstack([x, new])
+        except Exception:
+            # If KDE fails, use bootstrap resampling and add tiny noise
+            rep = rng.choice(x, size=min_num - n, replace=True)
+            jitter = 1e-8 * (np.std(x) if np.std(x) > 0 else 1.0) * rng.standard_normal(rep.size)
+            out = np.hstack([x, rep + jitter])
+    elif n > min_num:
+        # Randomly downsample without replacement
+        # (Set replace=True if duplicates are acceptable)
+        out = rng.choice(x, size=min_num, replace=False)
+    else:
+        # Exactly min_num samples — return unchanged
+        out = x
+
+    return out
+
+
     return MI
+
