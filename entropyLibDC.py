@@ -305,6 +305,39 @@ def Marginal_Entropy(x,buffer_coefficient=0.3,n=64):
     
         return hx
 
+def KL_Divergence(x, y, buffer_coefficient=0.3, n=64, e=1e-12):
+    """
+    Calculate the Kullback-Leibler divergence D_KL(p(x) || p(y)) between two
+    1D datasets using Gaussian kernel density estimation and Gauss-Legendre quadrature.
+
+    Parameters:
+    - x, y (np.ndarray): 1D arrays of samples from two distributions.
+    - buffer_coefficient (float): Buffer size added around min/max for integration bounds.
+    - n (int): Number of Gauss-Legendre points for integration.
+    - e (float): Small constant for numerical stability.
+
+    Returns:
+    - dkl (float): Estimated KL divergence D_KL(p(x) || p(y)).
+    """
+    # define integration bounds
+    lower = min(x.min(), y.min())
+    upper = max(x.max(), y.max())
+    buffer = buffer_coefficient * (upper - lower)
+    bounds = [lower-buffer, upper+buffer]
+
+    # get gauss-legendre points and weights (1D)
+    pts_wts, GLpw = GLJointNW_general(N=[n], Lower=[bounds[0]], Upper=[bounds[1]])
+    p = pts_wts[:, 0]       # points
+    w = pts_wts[:, -1]      # weights
+
+    # fit KDEs
+    kdex = stats.gaussian_kde(x)
+    kdey = stats.gaussian_kde(y)
+
+    # compute KL divergence
+    return GL_KLD(kdex, kdey, p, w, e=e)
+
+
 def Mutual_Information(x,y,buffer_coefficient=0.3,n=64,numerical_integration=True):
     """
     Calculate the mutual information between two single-variable datasets by numerical integration.
